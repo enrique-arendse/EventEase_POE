@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="text-center mb-5">
+    <h1 class="display-4">EventEase Venue Booking System</h1>
+    <p class="lead">
+        Administrative Platform for Managing Venues, Events, and Bookings
+    </p>
+</div>
+
+<div class="row text-center">
+
+    <div class="col-md-4 mb-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <h4 class="card-title">Venues</h4>
+                <p class="card-text">
+                    Create, edit, and manage venue information including location, capacity, and images.
+                </p>
+                <a asp-controller="Venues" asp-action="Index" class="btn btn-primary">
+                    Manage Venues
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <h4 class="card-title">Events</h4>
+                <p class="card-text">
+                    Create and manage events before assigning them to venues.
+                </p>
+                <a asp-controller="Events" asp-action="Index" class="btn btn-success">
+                    Manage Events
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card shadow">
+            <div class="card-body">
+                <h4 class="card-title">Bookings</h4>
+                <p class="card-text">
+                    Link events to venues and prevent scheduling conflicts.
+                </p>
+                <a asp-controller="Bookings" asp-action="Index" class="btn btn-warning">
+                    Manage Bookings
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr />
+
+<div class="text-center mt-4">
+    <p>
+        This system prevents double bookings and ensures secure storage of venue and event information.
+    </p>
+</div>
