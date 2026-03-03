@@ -18,8 +18,8 @@ main {
 /*navbar*/
 .navbar {
 	display: flex;
-	justify-content: space-between; /* Pushes child elements to opposite sides */
-	align-items: center; /* Vertically centers them */
+	justify-content: space-between;
+	align-items: center; 
 	padding: 20px 30px;
 	background-color: #333;
 	color: white;
@@ -33,7 +33,7 @@ main {
 .nav-links {
 	display: flex;
 	list-style-type: none;
-	gap: 15px; /* Spacing between links */
+	gap: 15px; 
 	margin: 0;
 	padding: 0;
 }
@@ -45,5 +45,6 @@ main {
 	}
 
 .nav-links li a:hover {
-			color: #ffcc00; /* Optional: highlight on hover */
+			color: #ffcc00; 
 }
+

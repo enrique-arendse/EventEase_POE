@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EventEase_POE.Data;
 using EventEase_POE.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace EventEase_POE.Controllers
 {
@@ -40,12 +41,18 @@ namespace EventEase_POE.Controllers
                 return NotFound();
             }
 
+            if (HttpContext.Session.GetString("UserRole") != "Admin")
+                return RedirectToAction("Login", "Account");
+
             return View(@event);
         }
 
         // GET: Events/Create
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetString("UserRole") != "Admin")
+                return RedirectToAction("Login", "Account");
+
             return View();
         }
 
@@ -56,6 +63,9 @@ namespace EventEase_POE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EventId,EventName,EventDate,Description")] Event @event)
         {
+            if (HttpContext.Session.GetString("UserRole") != "Admin")
+                return RedirectToAction("Login", "Account");
+
             if (ModelState.IsValid)
             {
                 _context.Add(@event);
@@ -73,6 +83,9 @@ namespace EventEase_POE.Controllers
                 return NotFound();
             }
 
+            if (HttpContext.Session.GetString("UserRole") != "Admin")
+                return RedirectToAction("Login", "Account");
+
             var @event = await _context.Events.FindAsync(id);
             if (@event == null)
             {
@@ -88,6 +101,9 @@ namespace EventEase_POE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("EventId,EventName,EventDate,Description")] Event @event)
         {
+            if (HttpContext.Session.GetString("UserRole") != "Admin")
+                return RedirectToAction("Login", "Account");
+
             if (id != @event.EventId)
             {
                 return NotFound();
@@ -139,6 +155,9 @@ namespace EventEase_POE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (HttpContext.Session.GetString("UserRole") != "Admin")
+                return RedirectToAction("Login", "Account");
+
             var @event = await _context.Events.FindAsync(id);
             if (@event != null)
             {
