@@ -18,7 +18,7 @@ builder.Services.AddSession();
 var app = builder.Build();
 
 
-// ================= SEED ADMIN =================
+// SEED ADMIN 
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider
