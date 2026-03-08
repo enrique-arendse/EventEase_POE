@@ -15,6 +15,7 @@ namespace EventEase_POE.Controllers
 			_context = context;
 		}
 
+
 		// ================= LOGIN =================
 
 		[HttpGet]
@@ -41,21 +42,22 @@ namespace EventEase_POE.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-		// ================= REGISTER =================
+		// ================= Sign Up =================
 
 		[HttpGet]
-		public IActionResult Register()
+		public IActionResult SignUp()
 		{
-			return View();
+			// render the shared SignUp view
+			return View("~/Views/Shared/SignUp.cshtml");
 		}
 
         [HttpPost]
-        public IActionResult Register(User user, string Password, string role)
+        public IActionResult SignUp(User user, string Password, string role)
         {
             if (_context.Users.Any(u => u.Email == user.Email))
             {
                 ViewBag.Error = "Email already exists.";
-                return View();
+                return View("~/Views/Shared/SignUp.cshtml");
             }
 
             // Normalize role values from the form
