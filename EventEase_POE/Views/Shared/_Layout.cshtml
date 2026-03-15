@@ -1,31 +1,50 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+
     <meta charset="utf-8" />
-    <title>@ViewData["Title"] - EventEase</title>
-    <link rel="stylesheet" href="~/css/site.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>EventEase</title>
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 </head>
+
+
+
 <body>
-    
     <header class="navbar">
 
-        <div class="site-name">EventEase</div>
-       
+        <div class="logo">
+            EventEase
+        </div>
 
-        <ul class ="nav-links">
-            <li><a href="/Home/Index">Home</a></li>
-            <li><a href="/About">About</a></li>
-        </ul>
+        <nav>
+
+            <a asp-controller="Home" asp-action="Index">Dashboard</a>
+
+            <a asp-controller="Venues" asp-action="Index">Venues</a>
+
+            <a asp-controller="Events" asp-action="Index">Events</a>
+
+            <a asp-controller="Bookings" asp-action="Index">Bookings</a>
+
+            <a asp-controller="Account" asp-action="Login" class="login-btn">Login</a>
+
+        </nav>
+
     </header>
-    
-    <main>
-        @RenderBody() 
+    <main class="container">
+
+        @RenderBody()
+
     </main>
 
-    <footer>
-        <p>&copy; 2026 EventEase</p>
-    </footer>
-
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

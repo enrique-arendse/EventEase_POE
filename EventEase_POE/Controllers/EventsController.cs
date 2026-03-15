@@ -23,7 +23,8 @@ namespace EventEase_POE.Controllers
         // GET: Events
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Events.ToListAsync());
+            var events = await _context.Events.ToListAsync();
+            return View(events);
         }
 
         // GET: Events/Details/5
@@ -61,7 +62,7 @@ namespace EventEase_POE.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventId,EventName,EventDate,Description")] Event @event)
+        public async Task<IActionResult> Create([Bind("EventId,EventName,EventDate,Description,ImageUrl")] Event @event)
         {
             if (HttpContext.Session.GetString("UserRole") != "Admin")
                 return RedirectToAction("Login", "Account");
@@ -72,6 +73,7 @@ namespace EventEase_POE.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(@event);
         }
 
@@ -99,7 +101,7 @@ namespace EventEase_POE.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventId,EventName,EventDate,Description")] Event @event)
+        public async Task<IActionResult> Edit(int id, [Bind("EventId,EventName,EventDate,Description,ImageUrl")] Event @event)
         {
             if (HttpContext.Session.GetString("UserRole") != "Admin")
                 return RedirectToAction("Login", "Account");
