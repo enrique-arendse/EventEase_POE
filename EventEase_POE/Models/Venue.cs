@@ -22,6 +22,9 @@ namespace EventEase_POE.Models
 		public string? ImageUrl { get; set; }
 
 		// Navigation property
-		public ICollection<Booking>? Bookings { get; set; }
+     public ICollection<Booking>? Bookings { get; set; }
+
+      
+
 	}
 }

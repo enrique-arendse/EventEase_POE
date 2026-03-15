@@ -1,0 +1,40 @@
+﻿@model IEnumerable<EventEase_POE.Models.User>
+
+<h1>System Users</h1>
+
+<p>Manage users registered in the system.</p>
+
+<table class="table">
+
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Role</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+
+	<tbody>
+
+		@foreach (var user in Model)
+		{
+			<tr>
+
+				<td>@user.Name</td>
+
+				<td>@user.Email</td>
+
+				<td>@user.Role</td>
+
+				<td>
+					<a asp-action="Edit" asp-route-id="@user.Id">Edit</a> |
+					<a asp-action="Delete" asp-route-id="@user.Id">Delete</a>
+				</td>
+
+			</tr>
+		}
+
+	</tbody>
+
+</table>
