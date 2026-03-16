@@ -1,4 +1,5 @@
 ﻿using EventEase_POE.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EventEase_POE.Data
@@ -13,6 +14,7 @@ namespace EventEase_POE.Data
 		public DbSet<Venue> Venues { get; set; }
 		public DbSet<Event> Events { get; set; }
 		public DbSet<Booking> Bookings { get; set; }
+		public DbSet<User> Users { get; set; } 
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

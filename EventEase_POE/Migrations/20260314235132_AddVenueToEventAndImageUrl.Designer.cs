@@ -4,6 +4,7 @@ using EventEase_POE.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventEase_POE.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260314235132_AddVenueToEventAndImageUrl")]
+    partial class AddVenueToEventAndImageUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +75,12 @@ namespace EventEase_POE.Migrations
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("VenueId")
+                        .HasColumnType("int");
+
                     b.HasKey("EventId");
+
+                    b.HasIndex("VenueId");
 
                     b.ToTable("Events");
                 });
@@ -156,12 +164,23 @@ namespace EventEase_POE.Migrations
 
             modelBuilder.Entity("EventEase_POE.Models.Event", b =>
                 {
+                    b.HasOne("EventEase_POE.Models.Venue", "Venue")
+                        .WithMany("Events")
+                        .HasForeignKey("VenueId");
+
+                    b.Navigation("Venue");
+                });
+
+            modelBuilder.Entity("EventEase_POE.Models.Event", b =>
+                {
                     b.Navigation("Bookings");
                 });
 
             modelBuilder.Entity("EventEase_POE.Models.Venue", b =>
                 {
                     b.Navigation("Bookings");
+
+                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }

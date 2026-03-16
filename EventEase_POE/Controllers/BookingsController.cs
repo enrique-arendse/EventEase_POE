@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EventEase_POE.Data;
 using EventEase_POE.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace EventEase_POE.Controllers
 {
@@ -20,8 +21,12 @@ namespace EventEase_POE.Controllers
         }
 
         // GET: Bookings
+        // Only Admin can view the bookings index
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetString("UserRole") != "Admin")
+                return RedirectToAction("Login", "Account");
+
             var applicationDbContext = _context.Bookings.Include(b => b.Event).Include(b => b.Venue);
             return View(await applicationDbContext.ToListAsync());
         }
@@ -47,20 +52,27 @@ namespace EventEase_POE.Controllers
         }
 
         // GET: Bookings/Create
+        // Booking specialists and Admin can create bookings
         public IActionResult Create()
         {
+            var role = HttpContext.Session.GetString("UserRole");
+            if (string.IsNullOrEmpty(role))
+                return RedirectToAction("Login", "Account");
+
             ViewData["EventId"] = new SelectList(_context.Events, "EventId", "EventName");
             ViewData["VenueId"] = new SelectList(_context.Venues, "VenueId", "Location");
             return View();
         }
 
         // POST: Bookings/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("BookingId,VenueId,EventId,BookingDate")] Booking booking)
         {
+            var role = HttpContext.Session.GetString("UserRole");
+            if (string.IsNullOrEmpty(role))
+                return RedirectToAction("Login", "Account");
+
             if (ModelState.IsValid)
             {
                 _context.Add(booking);
@@ -75,6 +87,9 @@ namespace EventEase_POE.Controllers
         // GET: Bookings/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            if (HttpContext.Session.GetString("UserRole") != "Admin")
+                return RedirectToAction("Login", "Account");
+
             if (id == null)
             {
                 return NotFound();
@@ -91,12 +106,13 @@ namespace EventEase_POE.Controllers
         }
 
         // POST: Bookings/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("BookingId,VenueId,EventId,BookingDate")] Booking booking)
         {
+            if (HttpContext.Session.GetString("UserRole") != "Admin")
+                return RedirectToAction("Login", "Account");
+
             if (id != booking.BookingId)
             {
                 return NotFound();
@@ -130,6 +146,9 @@ namespace EventEase_POE.Controllers
         // GET: Bookings/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            if (HttpContext.Session.GetString("UserRole") != "Admin")
+                return RedirectToAction("Login", "Account");
+
             if (id == null)
             {
                 return NotFound();
@@ -152,6 +171,9 @@ namespace EventEase_POE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            if (HttpContext.Session.GetString("UserRole") != "Admin")
+                return RedirectToAction("Login", "Account");
+
             var booking = await _context.Bookings.FindAsync(id);
             if (booking != null)
             {

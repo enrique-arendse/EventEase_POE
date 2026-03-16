@@ -10,7 +10,7 @@ namespace EventEase_POE.Controllers
 		{
 			return View();
 		}
-
+		
 		public IActionResult Privacy()
 		{
 			return View();

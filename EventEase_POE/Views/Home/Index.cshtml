@@ -1,13 +1,35 @@
 ﻿@{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "EventEase";
 }
 
-<div class="text-center mb-5">
-    <h1 class="display-4">EventEase Venue Booking System</h1>
-    <p class="lead">
-        Administrative Platform for Managing Venues, Events, and Bookings
-    </p>
+
+<div class="hero">
+
+    <div class="hero-content">
+
+        <h1>Welcome to EventEase!</h1>
+
+        <p>
+            Bringing Ease to Every Event
+        </p>
+
+        <div class="hero-buttons">
+
+            <a asp-controller="Account" asp-action="Login" class="btn btn-primary me-2" role="button">
+                Login
+            </a>
+
+            <a asp-controller="Account" asp-action="SignUp" class="btn btn-outline-primary" role="button">
+                Sign Up
+            </a>
+
+        </div>
+
+    </div>
+
 </div>
+
+
 
 <div class="row text-center">
 
@@ -57,8 +79,10 @@
 
 <hr />
 
-<div class="text-center mt-4">
-    <p>
-        This system prevents double bookings and ensures secure storage of venue and event information.
-    </p>
-</div>
+
+
+<footer class="footer">
+
+    <p>© 2026 EventEase | Venue Booking System</p>
+
+</footer>
