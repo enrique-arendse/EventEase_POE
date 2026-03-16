@@ -40,12 +40,14 @@ namespace EventEase_POE.Controllers
 			HttpContext.Session.SetString("UserRole", user.Role);
 			HttpContext.Session.SetString("UserName", user.Name);
 
-			// Redirect based on role
-			if (user.Role == "Admin")
+            // Redirect based on role
+			if (string.Equals(user.Role, "Admin", System.StringComparison.OrdinalIgnoreCase))
 			{
 				return RedirectToAction("Admin", "Dashboard");
 			}
-			else if (user.Role == "BookingSpecialist")
+			else if (string.Equals(user.Role, "Booking", System.StringComparison.OrdinalIgnoreCase) ||
+					 string.Equals(user.Role, "Booking Specialist", System.StringComparison.OrdinalIgnoreCase) ||
+					 string.Equals(user.Role, "BookingSpecialist", System.StringComparison.OrdinalIgnoreCase))
 			{
 				return RedirectToAction("BookingSpecialist", "Dashboard");
 			}
