@@ -8,7 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using EventEase_POE.Data;
 using EventEase_POE.Models;
 using Microsoft.AspNetCore.Http;
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Http;
+=======
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
 
 namespace EventEase_POE.Controllers
 {
@@ -23,11 +26,16 @@ namespace EventEase_POE.Controllers
 
         // GET: Bookings
         // Only Admin can view the bookings index
+<<<<<<< HEAD
         public async Task<IActionResult> Index(string? searchTerm = null)
+=======
+        public async Task<IActionResult> Index()
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
         {
             if (HttpContext.Session.GetString("UserRole") != "Admin")
                 return RedirectToAction("Login", "Account");
 
+<<<<<<< HEAD
             var bookings = await _context.Bookings
                 .Include(b => b.Event)
                 .Include(b => b.Venue)
@@ -60,6 +68,10 @@ namespace EventEase_POE.Controllers
 
             ViewBag.SearchTerm = searchTerm;
             return View(bookingDetails);
+=======
+            var applicationDbContext = _context.Bookings.Include(b => b.Event).Include(b => b.Venue);
+            return View(await applicationDbContext.ToListAsync());
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
         }
 
         // GET: Bookings/Details/5
@@ -104,6 +116,7 @@ namespace EventEase_POE.Controllers
             if (string.IsNullOrEmpty(role))
                 return RedirectToAction("Login", "Account");
 
+<<<<<<< HEAD
             // Validate: Check for double booking
             var existingBooking = await _context.Bookings
                 .FirstOrDefaultAsync(b => 
@@ -115,14 +128,19 @@ namespace EventEase_POE.Controllers
                 ModelState.AddModelError("BookingDate", "A booking already exists for this venue on the selected date.");
             }
 
+=======
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
             if (ModelState.IsValid)
             {
                 _context.Add(booking);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+<<<<<<< HEAD
 
             ViewBag.ErrorMessage = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).FirstOrDefault();
+=======
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
             ViewData["EventId"] = new SelectList(_context.Events, "EventId", "EventName", booking.EventId);
             ViewData["VenueId"] = new SelectList(_context.Venues, "VenueId", "Location", booking.VenueId);
             return View(booking);

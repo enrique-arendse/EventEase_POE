@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿@model EventEase_POE.Models.VenueUploadViewModel
 
 @{
@@ -48,11 +49,56 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-success">Create Venue</button>
                 <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+=======
+﻿@model EventEase_POE.Models.Venue
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Venue</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="VenueName" class="control-label"></label>
+                <input asp-for="VenueName" class="form-control" />
+                <span asp-validation-for="VenueName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Capacity" class="control-label"></label>
+                <input asp-for="Capacity" class="form-control" />
+                <span asp-validation-for="Capacity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label"></label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
             </div>
         </form>
     </div>
 </div>
 
+<<<<<<< HEAD
+=======
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

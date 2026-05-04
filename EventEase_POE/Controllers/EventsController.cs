@@ -7,7 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EventEase_POE.Data;
 using EventEase_POE.Models;
+<<<<<<< HEAD
 using EventEase_POE.Service;
+=======
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
 using Microsoft.AspNetCore.Http;
 
 namespace EventEase_POE.Controllers
@@ -15,12 +18,19 @@ namespace EventEase_POE.Controllers
     public class EventsController : Controller
     {
         private readonly ApplicationDbContext _context;
+<<<<<<< HEAD
         private readonly BlobStorageService _blobStorageService;
 
         public EventsController(ApplicationDbContext context, BlobStorageService blobStorageService)
         {
             _context = context;
             _blobStorageService = blobStorageService;
+=======
+
+        public EventsController(ApplicationDbContext context)
+        {
+            _context = context;
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
         }
 
         // GET: Events
@@ -57,6 +67,7 @@ namespace EventEase_POE.Controllers
             if (HttpContext.Session.GetString("UserRole") != "Admin")
                 return RedirectToAction("Login", "Account");
 
+<<<<<<< HEAD
             return View(new EventUploadViewModel());
         }
 
@@ -64,10 +75,22 @@ namespace EventEase_POE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(EventUploadViewModel model)
+=======
+            return View();
+        }
+
+        // POST: Events/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("EventId,EventName,EventDate,Description,ImageUrl")] Event @event)
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
         {
             if (HttpContext.Session.GetString("UserRole") != "Admin")
                 return RedirectToAction("Login", "Account");
 
+<<<<<<< HEAD
             // Validate image if provided
             if (model.ImageFile != null && !_blobStorageService.IsValidImageFile(model.ImageFile))
             {
@@ -105,6 +128,16 @@ namespace EventEase_POE.Controllers
             }
 
             return View(model);
+=======
+            if (ModelState.IsValid)
+            {
+                _context.Add(@event);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(@event);
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
         }
 
         // GET: Events/Edit/5
@@ -123,6 +156,7 @@ namespace EventEase_POE.Controllers
             {
                 return NotFound();
             }
+<<<<<<< HEAD
 
             var model = new EventUploadViewModel
             {
@@ -140,25 +174,44 @@ namespace EventEase_POE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EventUploadViewModel model)
+=======
+            return View(@event);
+        }
+
+        // POST: Events/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("EventId,EventName,EventDate,Description,ImageUrl")] Event @event)
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
         {
             if (HttpContext.Session.GetString("UserRole") != "Admin")
                 return RedirectToAction("Login", "Account");
 
+<<<<<<< HEAD
             if (id != model.EventId)
+=======
+            if (id != @event.EventId)
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
             {
                 return NotFound();
             }
 
+<<<<<<< HEAD
             // Validate image if provided
             if (model.ImageFile != null && !_blobStorageService.IsValidImageFile(model.ImageFile))
             {
                 ModelState.AddModelError("ImageFile", "Invalid image file. Please upload a valid image (JPG, PNG, GIF, WebP) up to 5MB.");
             }
 
+=======
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
             if (ModelState.IsValid)
             {
                 try
                 {
+<<<<<<< HEAD
                     var @event = await _context.Events.FindAsync(id);
                     if (@event == null)
                     {
@@ -189,6 +242,14 @@ namespace EventEase_POE.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!EventExists(model.EventId))
+=======
+                    _context.Update(@event);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!EventExists(@event.EventId))
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
                     {
                         return NotFound();
                     }
@@ -197,6 +258,7 @@ namespace EventEase_POE.Controllers
                         throw;
                     }
                 }
+<<<<<<< HEAD
                 catch (InvalidOperationException ex)
                 {
                     ModelState.AddModelError("", $"Error uploading image: {ex.Message}");
@@ -204,6 +266,11 @@ namespace EventEase_POE.Controllers
                 }
             }
             return View(model);
+=======
+                return RedirectToAction(nameof(Index));
+            }
+            return View(@event);
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
         }
 
         // GET: Events/Delete/5
@@ -214,9 +281,12 @@ namespace EventEase_POE.Controllers
                 return NotFound();
             }
 
+<<<<<<< HEAD
             if (HttpContext.Session.GetString("UserRole") != "Admin")
                 return RedirectToAction("Login", "Account");
 
+=======
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
             var @event = await _context.Events
                 .FirstOrDefaultAsync(m => m.EventId == id);
             if (@event == null)
@@ -224,6 +294,7 @@ namespace EventEase_POE.Controllers
                 return NotFound();
             }
 
+<<<<<<< HEAD
             // Check if event has active bookings
             var hasBookings = await _context.Bookings
                 .AnyAsync(b => b.EventId == id);
@@ -234,6 +305,8 @@ namespace EventEase_POE.Controllers
                 return View(@event);
             }
 
+=======
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
             return View(@event);
         }
 
@@ -248,6 +321,7 @@ namespace EventEase_POE.Controllers
             var @event = await _context.Events.FindAsync(id);
             if (@event != null)
             {
+<<<<<<< HEAD
                 // Delete image from Azure Blob Storage if exists
                 if (!string.IsNullOrEmpty(@event.ImageUrl))
                 {
@@ -259,6 +333,12 @@ namespace EventEase_POE.Controllers
                 TempData["SuccessMessage"] = "Event deleted successfully!";
             }
 
+=======
+                _context.Events.Remove(@event);
+            }
+
+            await _context.SaveChangesAsync();
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
             return RedirectToAction(nameof(Index));
         }
 

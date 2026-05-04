@@ -1,7 +1,10 @@
 using EventEase_POE.Data;
 using EventEase_POE.Models;
 using EventEase_POE.Service;
+<<<<<<< HEAD
 using EventEase_POE.Services;
+=======
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,12 +15,15 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 	options.UseSqlServer(
 		builder.Configuration.GetConnectionString("DefaultConnection")));
+<<<<<<< HEAD
 
 // Add Azure Blob Storage Service
 var azureStorageConnection = builder.Configuration.GetConnectionString("AzureStorageConnection");
 var containerName = builder.Configuration["ConnectionStrings:AzureStorageContainerName"];
 builder.Services.AddSingleton(new AzureStorageService(builder.Configuration));
 builder.Services.AddSingleton(new BlobStorageService(azureStorageConnection, containerName));
+=======
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 

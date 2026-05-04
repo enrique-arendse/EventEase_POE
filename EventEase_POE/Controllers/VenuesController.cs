@@ -7,7 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EventEase_POE.Data;
 using EventEase_POE.Models;
+<<<<<<< HEAD
 using EventEase_POE.Service;
+=======
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
 using Microsoft.AspNetCore.Http;
 
 namespace EventEase_POE.Controllers
@@ -15,12 +18,19 @@ namespace EventEase_POE.Controllers
     public class VenuesController : Controller
     {
         private readonly ApplicationDbContext _context;
+<<<<<<< HEAD
         private readonly BlobStorageService _blobStorageService;
 
         public VenuesController(ApplicationDbContext context, BlobStorageService blobStorageService)
         {
             _context = context;
             _blobStorageService = blobStorageService;
+=======
+
+        public VenuesController(ApplicationDbContext context)
+        {
+            _context = context;
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
         }
 
         // GET: Venues
@@ -53,6 +63,7 @@ namespace EventEase_POE.Controllers
             if (HttpContext.Session.GetString("UserRole") != "Admin")
                 return RedirectToAction("Login", "Account");
 
+<<<<<<< HEAD
             return View(new VenueUploadViewModel());
         }
 
@@ -60,10 +71,22 @@ namespace EventEase_POE.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(VenueUploadViewModel model)
+=======
+            return View();
+        }
+
+        // POST: Venues/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("VenueId,VenueName,Location,Capacity,ImageUrl")] Venue venue)
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
         {
             if (HttpContext.Session.GetString("UserRole") != "Admin")
                 return RedirectToAction("Login", "Account");
 
+<<<<<<< HEAD
             // Validate image if provided
             if (model.ImageFile != null && !_blobStorageService.IsValidImageFile(model.ImageFile))
             {
@@ -101,6 +124,15 @@ namespace EventEase_POE.Controllers
                 }
             }
             return View(model);
+=======
+            if (ModelState.IsValid)
+            {
+                _context.Add(venue);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(venue);
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
         }
 
         // GET: Venues/Edit/5
@@ -111,14 +143,18 @@ namespace EventEase_POE.Controllers
                 return NotFound();
             }
 
+<<<<<<< HEAD
             if (HttpContext.Session.GetString("UserRole") != "Admin")
                 return RedirectToAction("Login", "Account");
 
+=======
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
             var venue = await _context.Venues.FindAsync(id);
             if (venue == null)
             {
                 return NotFound();
             }
+<<<<<<< HEAD
 
             var model = new VenueUploadViewModel
             {
@@ -130,6 +166,12 @@ namespace EventEase_POE.Controllers
             };
 
             return View(model);
+=======
+            if (HttpContext.Session.GetString("UserRole") != "Admin")
+                return RedirectToAction("Login", "Account");
+
+            return View(venue);
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
         }
 
         // POST: Venues/Edit/5
@@ -202,6 +244,7 @@ namespace EventEase_POE.Controllers
             var venue = await _context.Venues.FindAsync(id);
             if (venue != null)
             {
+<<<<<<< HEAD
                 // Delete image from Azure Blob Storage if exists
                 if (!string.IsNullOrEmpty(venue.ImageUrl))
                 {
@@ -213,6 +256,12 @@ namespace EventEase_POE.Controllers
                 TempData["SuccessMessage"] = "Venue deleted successfully!";
             }
 
+=======
+                _context.Venues.Remove(venue);
+            }
+
+            await _context.SaveChangesAsync();
+>>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
             return RedirectToAction(nameof(Index));
         }
 
