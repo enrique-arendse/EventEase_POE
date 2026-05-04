@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-=======
-<Project Sdk="Microsoft.NET.Sdk.Web">
->>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -23,16 +19,13 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.23.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="10.0.2" />
-<<<<<<< HEAD
     <PackageReference Include="NuGet.Packaging" Version="7.3.1" />
     <PackageReference Include="NuGet.Protocol" Version="7.3.1" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.20.0" />
-=======
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Migrations\" />
->>>>>>> 065241ef1aa6e16fb0a5f41d6f943825e160e4b9
   </ItemGroup>
 
 </Project>
