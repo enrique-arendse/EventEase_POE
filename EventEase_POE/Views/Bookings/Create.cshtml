@@ -1,39 +1,51 @@
 ﻿@model EventEase_POE.Models.Booking
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Booking";
 }
 
-<h1>Create</h1>
+<div class="card card-elegant p-4">
+    <h1 class="mb-3">Create New Booking</h1>
 
-<h4>Booking</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="VenueId" class="control-label"></label>
-                <select asp-for="VenueId" class ="form-control" asp-items="ViewBag.VenueId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventId" class="control-label"></label>
-                <select asp-for="EventId" class ="form-control" asp-items="ViewBag.EventId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="BookingDate" class="control-label"></label>
-                <input asp-for="BookingDate" class="form-control" />
-                <span asp-validation-for="BookingDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error:</strong> @ViewBag.ErrorMessage
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="VenueId" class="form-label">Venue <span class="text-danger">*</span></label>
+            <select asp-for="VenueId" class="form-control" asp-items="ViewBag.VenueId" required>
+                <option value="">-- Select a Venue --</option>
+            </select>
+            <span asp-validation-for="VenueId" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="EventId" class="form-label">Event <span class="text-danger">*</span></label>
+            <select asp-for="EventId" class="form-control" asp-items="ViewBag.EventId" required>
+                <option value="">-- Select an Event --</option>
+            </select>
+            <span asp-validation-for="EventId" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="BookingDate" class="form-label">Booking Date <span class="text-danger">*</span></label>
+            <input asp-for="BookingDate" class="form-control" type="date" required />
+            <span asp-validation-for="BookingDate" class="text-danger small"></span>
+            <small class="text-muted">Select a date when this venue is available for the event.</small>
+        </div>
+
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Create Booking</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
